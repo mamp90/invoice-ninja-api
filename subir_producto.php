@@ -13,7 +13,7 @@ if (!isset($data["codigo"]) || !isset($data["descripcion"]) || !isset($data["pre
 $payload = json_encode([
     "product_key" => $data["codigo"],
     "notes" => $data["descripcion"],
-    "price" => floatval($data["precio"])  // <--- CORREGIDO: era 'cost'
+    "price" => floatval($data["precio"])
 ]);
 
 $ch = curl_init($url);
@@ -21,7 +21,7 @@ curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 curl_setopt($ch, CURLOPT_POSTFIELDS, $payload);
 curl_setopt($ch, CURLOPT_HTTPHEADER, [
     "Content-Type: application/json",
-    "X-API-Token: 9ycndqKvGDVBzd4FieP7AJuCMsDlVjwo1r43wQDLCOwxHaPpxsTooH5cTIOmu6Mk"
+    "X-API-Token: VYFGbZoktBXdtZjnpvYLkQrZsUd456vXYXRTyZWUnEMf5bLaHTwYGbubr04DKUO6"
 ]);
 
 $response = curl_exec($ch);
