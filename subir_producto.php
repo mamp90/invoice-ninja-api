@@ -1,7 +1,10 @@
 <?php
 header('Content-Type: application/json');
 
-$url = "https://app.invoicing.co/api/v1/products";
+// URL personalizada según tu subdominio
+$url = "https://martellsheetmetalllc.invoicing.co/api/v1/products";
+$token = "VYFGbZoktBXdtZjnpvYLkQrZsUd456vXYXRTyZWUnEMf5bLaHTwYGbubr04DKUO6";
+
 $data = json_decode(file_get_contents("php://input"), true);
 
 if (!isset($data["codigo"]) || !isset($data["descripcion"]) || !isset($data["precio"])) {
@@ -18,20 +21,20 @@ $payload = json_encode([
 
 $ch = curl_init($url);
 curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+curl_setopt($ch, CURLOPT_POST, true);
 curl_setopt($ch, CURLOPT_POSTFIELDS, $payload);
 curl_setopt($ch, CURLOPT_HTTPHEADER, [
     "Content-Type: application/json",
-    "X-API-Token: VYFGbZoktBXdtZjnpvYLkQrZsUd456vXYXRTyZWUnEMf5bLaHTwYGbubr04DKUO6"
+    "X-API-Token: $token"
 ]);
 
 $response = curl_exec($ch);
-$httpcode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+$http_code = curl_getinfo($ch, CURLINFO_HTTP_CODE);
 $error = curl_error($ch);
 curl_close($ch);
 
-http_response_code($httpcode);
 echo json_encode([
-    "codigo_http" => $httpcode,
+    "codigo_http" => $http_code,
     "respuesta" => json_decode($response, true),
     "error_curl" => $error
 ]);
