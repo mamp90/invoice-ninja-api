@@ -13,7 +13,7 @@ if (!isset($data["codigo"]) || !isset($data["descripcion"]) || !isset($data["pre
 $payload = json_encode([
     "product_key" => $data["codigo"],
     "notes" => $data["descripcion"],
-    "cost" => floatval($data["precio"])
+    "price" => floatval($data["precio"])  // <--- CORREGIDO: era 'cost'
 ]);
 
 $ch = curl_init($url);
@@ -26,15 +26,14 @@ curl_setopt($ch, CURLOPT_HTTPHEADER, [
 
 $response = curl_exec($ch);
 $httpcode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+$curlError = curl_error($ch);
 curl_close($ch);
 
 http_response_code($httpcode);
 
-if (empty($response)) {
-    echo json_encode(["mensaje" => "Respuesta vacía del servidor Invoice Ninja"]);
-    exit;
-}
-
-echo $response;
-// Última edición por Miguel
+echo json_encode([
+    "codigo_http" => $httpcode,
+    "respuesta" => json_decode($response, true),
+    "error_curl" => $curlError
+]);
 ?>
