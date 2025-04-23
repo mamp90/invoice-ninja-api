@@ -1,23 +1,23 @@
 
 <!DOCTYPE html>
 <html lang="es">
-<head><meta charset="UTF-8"><title>Subida Test</title></head>
+<head><meta charset="UTF-8"><title>Prueba Producto Nuevo</title></head>
 <body>
-<h2>Probar conexión a Invoice Ninja</h2>
-<button onclick="subir()">Subir producto</button>
+<h2>Probar subida de producto nuevo</h2>
+<button onclick="subir()">Subir producto único</button>
 
 <script>
 function subir() {
-    fetch('/subir_producto.php', {
+    fetch('https://invoice-ninja-api.onrender.com/subir_producto.php', {
         method: 'POST',
         headers: {'Content-Type': 'application/json'},
         body: JSON.stringify({
-            codigo: "PLEN26203048",
-            descripcion: "DR 26GA 20x30x48",
-            precio: 58.50
+            codigo: "PLEN26202648TEST",
+            descripcion: "DR 26GA 20x26x48 WITH 1\" DUCT LINER",
+            precio: 94.50
         })
     }).then(r => r.text()).then(txt => {
-        alert("Respuesta:\n" + txt);
+        alert("Respuesta del servidor:\n" + txt);
     }).catch(err => {
         alert("Error: " + err.message);
     });
