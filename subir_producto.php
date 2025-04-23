@@ -13,7 +13,7 @@ if (!isset($data["codigo"]) || !isset($data["descripcion"]) || !isset($data["pre
 $payload = json_encode([
     "product_key" => $data["codigo"],
     "notes" => $data["descripcion"],
-    "price" => floatval($data["precio"])
+    "cost" => floatval($data["precio"])
 ]);
 
 $ch = curl_init($url);
@@ -26,14 +26,13 @@ curl_setopt($ch, CURLOPT_HTTPHEADER, [
 
 $response = curl_exec($ch);
 $httpcode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
-$curlError = curl_error($ch);
+$error = curl_error($ch);
 curl_close($ch);
 
 http_response_code($httpcode);
-
 echo json_encode([
     "codigo_http" => $httpcode,
     "respuesta" => json_decode($response, true),
-    "error_curl" => $curlError
+    "error_curl" => $error
 ]);
 ?>
