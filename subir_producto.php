@@ -29,6 +29,12 @@ $httpcode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
 curl_close($ch);
 
 http_response_code($httpcode);
+
+if (empty($response)) {
+    echo json_encode(["mensaje" => "Respuesta vacía del servidor Invoice Ninja"]);
+    exit;
+}
+
 echo $response;
 // Última edición por Miguel
 ?>
