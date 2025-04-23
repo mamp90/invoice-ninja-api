@@ -30,4 +30,5 @@ curl_close($ch);
 
 http_response_code($httpcode);
 echo $response;
+// Última edición por Miguel
 ?>
